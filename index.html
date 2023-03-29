@@ -4,38 +4,55 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Library</title>
+    <title>Library</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/b68b3f9e8e.js" crossorigin="anonymous"></script>
     <script src="script.js" defer></script>
 </head>
 <body>
     <header>
-        <h1>Library</h1>
-        <button type="submit">Log in</button>
+        <nav>
+            <h1>Library</h1>
+            <button type="submit">Log in</button>
+        </nav>
     </header>
 
     <main>
-        <div>
+        <div id="addBook">
             <button type="submit">Add Book</button>
         </div>
-        <div class="display">
-            <div class="card">
-                <input type="text" placeholder="Title">
-                <input type="text" placeholder="Author">
-                <input type="number" placeholder="Pages">
-                Have you read it?<input type="checkbox">
-                <input type="submit">
-            </div>
-            <div class="card">
-                <input type="text" placeholder="Title">
-                <input type="text" placeholder="Author">
-                <input type="number" placeholder="Pages">
-                <input type="checkbox">
-                <input type="submit">
+        <div class="container">
+            <div class="display">
+                <div class="card">
+                        <p class="firstName">Name</p>
+                        <p class="author">Author</p>
+                        <p class="pages">Pages</p>
+                        <button class="toggle" type="button">Read</button>
+                        <button class="remove" type="button">Remove</button>
+                </div>
             </div>
         </div>
     </main>
+
+    <div class="modalContainer">
+        <div class="card modal">
+            <div>
+                <label for="firstName"><input type="text" placeholder="Title" id="firstName"></label>
+            </div>
+            <div>
+                <label for="author"><input type="text" placeholder="Author" id="author"></label>
+            </div>
+            <div>
+                <label for="pages"><input type="number" placeholder="Pages" id="pages"></label>
+            </div>
+            <div>
+                <label for="checkbox">Have you read this?<input type="checkbox" id="checkbox"></label>
+            </div>
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </div>
+    </div>
 
     <footer class="footer">
         <p>||Ping|| © <script>document.write(new Date().getFullYear())</script>

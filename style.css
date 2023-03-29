@@ -6,6 +6,14 @@
   margin: 0;
 }
 
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+    font-size: 100%;
+}
+
 body {
     height: 100vh;
     display: flex;
@@ -13,30 +21,104 @@ body {
     justify-content: space-between;
     text-align: center;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    z-index: 1;
+    background: grey;
 }
 
 header {
     display: flex;
+    justify-content: center;
+    background: white;
+}
+
+nav {
+    flex: 1;
+    padding: 0 40px;
+    display: flex;
     justify-content: space-between;
     min-height: 70px;
     align-items: center;
+    max-width: 1200px;
 }
 
 main {
     flex: 1;
-    background: grey;
+}
+
+#addBook {
+    margin: 20px 0;
+}
+
+.container {
+    margin: auto;
+    max-width: 1200px;
 }
 
 .display {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1rem;
+    padding: 0 40px;
 }
 
 .card {
     background: white;
-    max-height: 260px;
-    /* max-width: 300px; */
+    height: 260px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 15px;
+}
+
+.card > * {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: solid 1px red;
+    flex-grow: 1;
+}
+
+.card button{
+    color: aqua;
+    min-width: 100px;
+    align-items: center;
+}
+
+label {
+    border: solid 1px green;
+    flex-grow: 1;
+}
+
+.card input {
+    width: 100%;
+    height: 100%;
+}
+
+.modalContainer {
+    opacity: 0;
+    transition: 0.5s ease;
+    pointer-events: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContainer.show {
+    background-color: rgb(102, 102, 121);
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.modal {
+    max-width: 300px;
 }
 
 footer {
