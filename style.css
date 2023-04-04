@@ -132,6 +132,7 @@ main {
 }
 
 .modal {
+    z-index: 6;
     min-width: 350px;
     background: #f0eef1;
 }
