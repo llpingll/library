@@ -13,13 +13,13 @@
     <header>
         <nav>
             <h1>Library</h1>
-            <button type="submit">Log in</button>
+            <button class="login" type="button">Log in</button>
         </nav>
     </header>
 
     <main>
-        <div id="addBook">
-            <button type="submit">Add Book</button>
+        <div class="addBook">
+            <button id="addBook" type="button">+ Add Book</button>
         </div>
         <div class="container">
             <div class="display">
@@ -34,19 +34,20 @@
         </div>
     </main>
 
-    <div class="modalContainer">
+    <div class="modalContainer show">
         <div class="card modal">
+            <h3>Add new book</h3>
             <div>
-                <label for="firstName"><input type="text" placeholder="Title" id="firstName"></label>
+                <label for="firstName"><input type="text" placeholder="Title" id="firstName" required></label>
             </div>
             <div>
-                <label for="author"><input type="text" placeholder="Author" id="author"></label>
+                <label for="author"><input type="text" placeholder="Author" id="author" required></label>
             </div>
             <div>
-                <label for="pages"><input type="number" placeholder="Pages" id="pages"></label>
+                <label for="pages"><input type="number" placeholder="Pages" id="pages" required></label>
             </div>
-            <div>
-                <label for="checkbox">Have you read this?<input type="checkbox" id="checkbox"></label>
+            <div class="checkbox">
+                <label for="checkbox"></label><span>Have you read it?</span><input type="checkbox" id="checkbox"></label>
             </div>
             <div>
                 <button type="submit">Submit</button>
