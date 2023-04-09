@@ -106,10 +106,6 @@ main {
     border-radius: 10px;
 }
 
-.card button:first-of-type {
-    background: rgb(139, 252, 139);
-}
-
 .modalContainer {
     opacity: 0;
     transition: 0.5s ease;
@@ -139,6 +135,7 @@ main {
 
 .modal button {
     width: 100%;
+    background: rgb(139, 252, 139);
 }
 
 .checkbox {
