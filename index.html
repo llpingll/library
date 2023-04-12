@@ -23,13 +23,6 @@
         </div>
         <div class="container">
             <div class="display">
-                <div class="card">
-                        <p class="title">Name</p>
-                        <p class="author">Author</p>
-                        <p class="pages">Pages</p>
-                        <button class="toggle" type="button">Read</button>
-                        <button class="remove" type="button">Remove</button>
-                </div>
             </div>
         </div>
     </main>
@@ -44,7 +37,7 @@
                 <label for="author"><input type="text" placeholder="Author" id="author" required></label>
             </div>
             <div>
-                <label for="pages"><input type="number" placeholder="Pages" id="pages" required></label>
+                <label for="pages"><input type="number" placeholder="Pages" id="pages" required min="0"></label>
             </div>
             <div class="checkbox">
                 <label for="checkbox"></label><span>Have you read it?</span><input type="checkbox" id="checkbox"></label>
@@ -57,7 +50,7 @@
 
     <footer class="footer">
         <p>||Ping|| © <script>document.write(new Date().getFullYear())</script>
-        <a href="https://https://github.com/llpingll" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a href="https://github.com/llpingll" target="_blank"><i class="fa-brands fa-github"></i></a>
         </p>
     </footer>
 </body>
