@@ -16,31 +16,10 @@ function Book(title, author, pages, read) {
     this.read = read;
 }
 
-// Book prototype
-// Book.prototype.info = function() {
-//     return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read}`;
-// }
-
-// Events
-addBook.addEventListener("click", (e) => {
-    modal.classList.toggle("show");
-});
-
-modal.addEventListener("click", (e) => {
-    if (e.target === modal) {
-        modal.classList.toggle("show");
-    }
-});
-
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const inputs = getInputs();
-    myLibrary.push(new Book(...inputs));
-    modal.classList.toggle("show");
-    addCard(inputs);
-    addCardEvent();
-    form.reset();
-});
+// Add a book prototype function
+Book.prototype.toggleRead = function() {
+    (this.read === true) ? this.read = false : this.read = true;
+}
 
 
 // Function definitions
@@ -60,13 +39,13 @@ function addCard(inputs) {
     card.classList.add("card");
     display.appendChild(card);
 
-    // Create and append card childeren(p & button)
+    // Create and append card children(p & button)
     const classes = ["title", "author", "pages", "toggle", "remove"];
     for (let i = 0; i < inputs.length + 1; i++) {
         if (i < 3) {
             const p = document.createElement("p");
             p.className = classes[i];
-            p.textContent = inputs[i];
+            (i === 2) ? p.textContent += `${inputs[i]} Pages` : p.textContent = inputs[i];;
             card.appendChild(p);
         }
         else {
@@ -107,6 +86,19 @@ function toggleReadStatus(e) {
     }
 }
 
+function toggleReadStatus(e) {
+    if (e.target.textContent === "Read") {
+        e.target.style.backgroundColor = "rgb(252, 139, 139)";
+        e.target.textContent = "Not Read";
+        myLibrary[e.target.parentElement.dataset.index - 1].toggleRead();
+    }
+    else {
+        e.target.style.backgroundColor = "rgb(139, 252, 139)";
+        e.target.textContent = "Read";
+        myLibrary[e.target.parentElement.dataset.index - 1].toggleRead();
+    }
+}
+
 function removeCard(e) {
     // Remove element from DOM & List (If last card != 1 it will not be removed becuase dataset-index has not been reassigned)
     const index = e.target.parentElement.dataset.index;
@@ -121,3 +113,25 @@ function removeCard(e) {
         }
     }
 }
+
+
+// Events
+addBook.addEventListener("click", (e) => {
+    modal.classList.toggle("show");
+});
+
+modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+        modal.classList.toggle("show");
+    }
+});
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const inputs = getInputs();
+    myLibrary.push(new Book(...inputs));
+    modal.classList.toggle("show");
+    addCard(inputs);
+    addCardEvent();
+    form.reset();
+});
