@@ -100,7 +100,7 @@ function toggleReadStatus(e) {
 }
 
 function removeCard(e) {
-    // Remove element from DOM & List (If last card != 1 it will not be removed becuase dataset-index has not been reassigned)
+    // Remove element from DOM & List
     const index = e.target.parentElement.dataset.index;
     document.querySelector(`[data-index="${index}"]`).remove();
     myLibrary.splice(index - 1, 1);
