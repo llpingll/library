@@ -1,26 +1,92 @@
-// Get variables
+// Cache
 const form = document.querySelector(".card.modal");
 const modal = document.querySelector(".modalContainer");
 const addBook = document.querySelector("#addBook");
 const display = document.querySelector(".display");
 
 // SCRIPT
-// List of books
-const myLibrary = [];
+class Library {
+    constructor() {
+        this.books = [];
+    }
 
-// Book constructor
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
+    addCard(inputs) {
+        // Create and append div(card)
+        const card = document.createElement("div");
+        card.dataset.index = this.books.length;
+        card.classList.add("card");
+        display.appendChild(card);
+    
+        // Create and append card children(p & button)
+        const classes = ["title", "author", "pages", "toggle", "remove"];
+        for (let i = 0; i < inputs.length + 1; i++) {
+            if (i < 3) {
+                const p = document.createElement("p");
+                p.className = classes[i];
+                (i === 2) ? p.textContent += `${inputs[i]} Pages` : p.textContent = inputs[i];
+                card.appendChild(p);
+            }
+            else {
+                const b = document.createElement("button");
+                b.className = classes[i];
+                b.type = "button";
+                if (i === 3) {
+                    b.textContent = inputs[i] ? "Read" : "Not Read";
+                    b.style.backgroundColor = inputs[i] ? "rgb(139, 252, 139)" : "rgb(252, 139, 139)";
+                }
+                else {
+                    b.textContent = "Remove";
+                }
+                card.appendChild(b);
+            }
+        }
+    }
+
+    toggleRead(e) {
+        const i = e.target.parentElement.dataset.index - 1;
+        (this.books[i].read === true) ? this.books[i].read = false : this.books[i].read = true;
+    }
+
+    toggleReadStatus(e) {
+        if (e.target.textContent === "Read") {
+            e.target.style.backgroundColor = "rgb(252, 139, 139)";
+            e.target.textContent = "Not Read";
+            this.toggleRead(e);
+        }
+        else {
+            e.target.style.backgroundColor = "rgb(139, 252, 139)";
+            e.target.textContent = "Read";
+            this.toggleRead(e);
+        }
+    }
+
+    removeCard(e) {
+        // Remove element from DOM & List
+        const index = e.target.parentElement.dataset.index;
+        document.querySelector(`[data-index="${index}"]`).remove();
+        this.books.splice(index - 1, 1);
+    
+        // Reassign index numbers
+        if (this.books[index - 1]) {
+            for (let i = index - 1; i < this.books.length; i++) {
+                let div = document.querySelector(`[data-index="${i + 2}"]`);
+                div.dataset.index = i + 1;
+            }
+        }
+    }
+
 }
 
-// Add a book prototype function
-Book.prototype.toggleRead = function() {
-    (this.read === true) ? this.read = false : this.read = true;
+class Book {
+    constructor(title = "title", author = "author", pages = 1, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
 }
 
+const myLibrary = new Library();
 
 // Function definitions
 function getInputs() {
@@ -32,88 +98,14 @@ function getInputs() {
     return inputs;
 }
 
-function addCard(inputs) {
-    // Create and append div(card)
-    const card = document.createElement("div");
-    card.dataset.index = myLibrary.length;
-    card.classList.add("card");
-    display.appendChild(card);
-
-    // Create and append card children(p & button)
-    const classes = ["title", "author", "pages", "toggle", "remove"];
-    for (let i = 0; i < inputs.length + 1; i++) {
-        if (i < 3) {
-            const p = document.createElement("p");
-            p.className = classes[i];
-            (i === 2) ? p.textContent += `${inputs[i]} Pages` : p.textContent = inputs[i];;
-            card.appendChild(p);
-        }
-        else {
-            const b = document.createElement("button");
-            b.className = classes[i];
-            b.type = "button";
-            if (i === 3) {
-                b.textContent = inputs[i] ? "Read" : "Not Read";
-                b.style.backgroundColor = inputs[i] ? "rgb(139, 252, 139)" : "rgb(252, 139, 139)";
-            }
-            else {
-                b.textContent = "Remove";
-            }
-            card.appendChild(b);
-        }
-    }
-}
-
 function addCardEvent() {
     const cardButtons = document.querySelectorAll(".card:last-child > button");
     cardButtons.forEach(button => {
         button.addEventListener("click", (e) => {
-            (e.target.className === "toggle") ? toggleReadStatus(e) : removeCard(e);
+            (e.target.className === "toggle") ? myLibrary.toggleReadStatus(e) : myLibrary.removeCard(e);
         });
     });
 }
-
-function toggleReadStatus(e) {
-    if (e.target.textContent === "Read") {
-        e.target.style.backgroundColor = "rgb(252, 139, 139)";
-        e.target.textContent = "Not Read";
-        myLibrary[e.target.parentElement.dataset.index - 1]["read"] = false;
-    }
-    else {
-        e.target.style.backgroundColor = "rgb(139, 252, 139)";
-        e.target.textContent = "Read";
-        myLibrary[e.target.parentElement.dataset.index - 1]["read"] = true;
-    }
-}
-
-function toggleReadStatus(e) {
-    if (e.target.textContent === "Read") {
-        e.target.style.backgroundColor = "rgb(252, 139, 139)";
-        e.target.textContent = "Not Read";
-        myLibrary[e.target.parentElement.dataset.index - 1].toggleRead();
-    }
-    else {
-        e.target.style.backgroundColor = "rgb(139, 252, 139)";
-        e.target.textContent = "Read";
-        myLibrary[e.target.parentElement.dataset.index - 1].toggleRead();
-    }
-}
-
-function removeCard(e) {
-    // Remove element from DOM & List
-    const index = e.target.parentElement.dataset.index;
-    document.querySelector(`[data-index="${index}"]`).remove();
-    myLibrary.splice(index - 1, 1);
-
-    // Reassign index numbers
-    if (myLibrary[index - 1]) {
-        for (let i = index - 1; i < myLibrary.length; i++) {
-            let div = document.querySelector(`[data-index="${i + 2}"]`);
-            div.dataset.index = i + 1;
-        }
-    }
-}
-
 
 // Events
 addBook.addEventListener("click", (e) => {
@@ -129,9 +121,9 @@ modal.addEventListener("click", (e) => {
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     const inputs = getInputs();
-    myLibrary.push(new Book(...inputs));
+    myLibrary.books.push(new Book(...inputs));
     modal.classList.toggle("show");
-    addCard(inputs);
+    myLibrary.addCard(inputs);
     addCardEvent();
     form.reset();
 });
