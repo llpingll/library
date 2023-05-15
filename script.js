@@ -108,7 +108,7 @@ function addCardEvent() {
 }
 
 // Events
-addBook.addEventListener("click", (e) => {
+addBook.addEventListener("click", () => {
     modal.classList.toggle("show");
 });
 
