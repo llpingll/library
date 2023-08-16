@@ -157,6 +157,14 @@ input:focus {
     outline: none;
 }
 
+input:focus:invalid {
+    border: 1px solid red;
+}
+
+input:focus:valid {
+    border: 1px solid green;
+}
+
 #checkbox {
     width: 25px;
 }
